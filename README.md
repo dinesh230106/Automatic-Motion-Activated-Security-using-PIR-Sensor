@@ -1,6 +1,7 @@
+# DINESH KUMAR A (212223060057)
 # Automatic-Motion-Activated-Security-using-PIR-Sensor
 ## AIM:
-             To detect motion using a PIR sensor connected to an Arduino and trigger an LED (using the built-in LED) when motion is sensed.
+To detect motion using a PIR sensor connected to an Arduino and trigger an LED (using the built-in LED) when motion is sensed.
              
 ## Hardware / Software Tools required:
 1.	 Arduino Uno R3 – 1 No
@@ -14,7 +15,7 @@
 
 ## Theory:
 
-     Passive Infrared (PIR) sensors are electronic devices that detect motion by sensing infrared radiation emitted by objects. Every object with a temperature above absolute zero emits infrared radiation. The PIR sensor detects this radiation and can sense motion when a warm object, such as a human body, passes within its detection range. The sensor contains a pair of pyroelectric sensors housed under a Fresnel lens, which focuses the infrared signals onto the sensor surface. When the infrared levels change rapidly between the two pyroelectric sensors—such as when a person walks by—the sensor outputs a HIGH signal indicating motion detection.
+Passive Infrared (PIR) sensors are electronic devices that detect motion by sensing infrared radiation emitted by objects. Every object with a temperature above absolute zero emits infrared radiation. The PIR sensor detects this radiation and can sense motion when a warm object, such as a human body, passes within its detection range. The sensor contains a pair of pyroelectric sensors housed under a Fresnel lens, which focuses the infrared signals onto the sensor surface. When the infrared levels change rapidly between the two pyroelectric sensors—such as when a person walks by—the sensor outputs a HIGH signal indicating motion detection.
 PIR sensors are widely used in motion detection systems, security alarms, automatic lighting systems, and smart surveillance. They are popular due to their low power consumption, affordability, and ease of integration with microcontrollers such as the Arduino Uno. The sensor typically has three pins: VCC (power), GND (ground), and OUT (signal). When idle, the output pin remains LOW. Once motion is detected, the sensor sends a HIGH signal to the microcontroller, which can be used to trigger a response such as turning on an LED or activating an alarm.
 In this experiment, the PIR sensor is connected to an Arduino Uno board. The VCC pin of the sensor is connected to the 5V supply of the Arduino to power the sensor. The GND pin is connected to the Arduino’s ground. The OUT pin is connected to a digital input pin (pin 2 in this case) of the Arduino. The Arduino continuously monitors the state of the signal pin. If the signal pin goes HIGH, it means the sensor has detected motion, and the Arduino is programmed to turn ON the built-in LED on pin 13. If no motion is detected, the signal remains LOW, and the LED is turned OFF.
 Circuit Diagram:
@@ -59,12 +60,52 @@ Step 7: Save Your Work
 2.	Save the Circuit: Click “Save” at the top of the screen to store your design and code for future use.
 
 
+# Schematic view
+<img width="973" height="734" alt="Screenshot 2025-09-02 215302" src="https://github.com/user-attachments/assets/f400a624-1fc3-432d-afc2-c1a111e51721" />
+
+# circuit diagram 
+
+<img width="1086" height="729" alt="Screenshot 2025-09-02 214758" src="https://github.com/user-attachments/assets/40f3ee57-9118-4a0d-8be5-5d5f74066061" />
+
+
 # Code:
+```
+int pirPin = 7;       // PIR sensor output pin connected to D2
+int ledPin = 8;      // LED connected to D13
+int buzzerPin = 9;    // Buzzer connected to D8
 
+void setup() {
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+  Serial.begin(9600);
+}
 
+void loop() {
+  int pirValue = digitalRead(pirPin);
+
+  if (pirValue == HIGH) {
+    digitalWrite(ledPin, HIGH);
+
+    // Beeping sound instead of flat tone
+    tone(buzzerPin, 1000);   // play 1kHz tone
+    delay(200);              // on for 200ms
+    noTone(buzzerPin);       // turn off buzzer
+    delay(200);              // pause for 200ms
+
+    Serial.println("Motion Detected!");
+  } else {
+    digitalWrite(ledPin, LOW);
+    noTone(buzzerPin);       // ensure buzzer is off
+    Serial.println("No Motion.");
+  }
+}
+
+```
 
 # Output:
 
+https://github.com/user-attachments/assets/b7f51dfb-2093-4ccc-a6a3-c468c54b55e3
 
 
 
